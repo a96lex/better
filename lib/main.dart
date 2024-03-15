@@ -78,15 +78,19 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 100,
-        title: Text(
-          widget.title,
-          style: TextStyle(
-              color: Theme.of(context).primaryColorDark,
-              fontFamily: "Playfair Display",
-              fontWeight: FontWeight.w900,
-              fontStyle: FontStyle.italic,
-              fontSize: 80),
+        toolbarHeight: 120,
+        centerTitle: false,
+        title: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Text(
+            widget.title,
+            style: TextStyle(
+                color: Theme.of(context).primaryColorDark,
+                fontFamily: "Playfair Display",
+                fontWeight: FontWeight.w900,
+                fontStyle: FontStyle.italic,
+                fontSize: 80),
+          ),
         ),
       ),
       body: PageView(
