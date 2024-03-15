@@ -71,22 +71,36 @@ flutter:
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
 
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+
+  fonts:
+    - family: Playfair Display
+      fonts:
+        - asset: fonts/PlayfairDisplay/Black.ttf
+          weight: 900
+        - asset: fonts/PlayfairDisplay/BlackItalic.ttf
+          weight: 900
+          style: italic
+        - asset: fonts/PlayfairDisplay/Bold.ttf
+          weight: 700
+        - asset: fonts/PlayfairDisplay/BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: fonts/PlayfairDisplay/Extrabold.ttf
+          weight: 800
+        - asset: fonts/PlayfairDisplay/ExtraboldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: fonts/PlayfairDisplay/Italic.ttf
+          style: italic
+        - asset: fonts/PlayfairDisplay/Medium.ttf
+          weight: 500
+        - asset: fonts/PlayfairDisplay/MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: fonts/PlayfairDisplay/Regular.ttf
+          weight: 400
+        - asset: fonts/PlayfairDisplay/Semibold.ttf
+          weight: 600
+        - asset: fonts/PlayfairDisplay/SemiboldItalic.ttf
+          weight: 600
+          style: italic
