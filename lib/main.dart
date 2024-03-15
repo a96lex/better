@@ -22,21 +22,21 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Mejor'),
+      home: const MainPage(title: 'Mejor'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class MainPage extends StatefulWidget {
+  const MainPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MainPageState extends State<MainPage> {
   int _pageIndex = 0;
   late PageController _pageController = PageController();
 
@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   static final List<Widget> _widgetOptions = <Widget>[
-    const HomeScreen(),
+    HomeScreen(),
     const HistoryScreen(),
     const AboutScreen()
   ];

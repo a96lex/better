@@ -79,6 +79,13 @@ class DatabaseHelper {
     );
   }
 
+  Future<Event> readLastEvent() async {
+    final db = await database;
+    const orderBy = 'date DESC';
+    final result = await db.query('events', orderBy: orderBy, limit: 1);
+    return Event.fromMap(result.first);
+  }
+
   Future close() async {
     final db = await database;
     db.close();
