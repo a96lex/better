@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:better/database/database_helper.dart';
 import 'package:better/models/event.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:better/components/custom_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -48,20 +50,34 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, snapshot) {
         _readEvent();
 
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              if (lastEvent == null)
-                const Text("No last event")
-              else
-                Text(
-                  "Last event: ${lastEvent?['id']}, ${lastEvent?['date']}",
-                  style: const TextStyle(fontSize: 20),
-                ),
-            ],
-          ),
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            if (lastEvent == null)
+              Padding(
+                  padding: const EdgeInsets.all(60),
+                  child: Column(children: [
+                    Text(
+                      AppLocalizations.of(context)!.homeNoEntries,
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                    const SizedBox(height: 60),
+                    CustomButton(
+                      onPressed: () {},
+                      text: AppLocalizations.of(context)!.homeFirstEntryButton,
+                    )
+                  ]))
+            else
+              Padding(
+                  padding: const EdgeInsets.all(60),
+                  child: Column(children: [
+                    Text(
+                      "Last event: ${lastEvent?['id']}, ${lastEvent?['date']}",
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ]))
+          ],
         );
       },
     );

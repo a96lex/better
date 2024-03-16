@@ -5,6 +5,8 @@ import 'package:better/screens/about.dart';
 import 'package:better/screens/history.dart';
 import 'package:better/screens/home.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +23,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
+        textTheme: GoogleFonts.albertSansTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
+
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      // TODO: remove
+      locale: const Locale("es"),
       home: const MainPage(title: 'Mejor'),
     );
   }

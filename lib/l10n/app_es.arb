@@ -1,0 +1,15 @@
+{
+  "homeNoEntries": "Hola!\n\nEsta app fue diseñada para ayudarte a mejorar tus hábitos y tu vida.\n\nAquí empieza tu nuevo camino",
+  "homeFirstEntryButton": "Añade tu última vez",
+  "homeHeader": "Felicidades!\n\nEstás mejor desde hace:",
+  "homeFooter": "Sólo un poco más!",
+  "homeNewEntryButton": "Has recaído?",
+  "newEntryModalText": "No pasa nada, todos hemos estado ahí. Todo irá bien.\n\nCuando ha sido?",
+  "newEntryModalButton": "Guardar",
+  "aboutHeader": "Esta app ha sido desarrollada por Alex. Nació para ayudarme a mi,y la comparto con el mundo por si puede ayudar a alguien más.\n\nSi esta app te ha ayudado a ti o a algun ser querido, y quieres apoyar el proyecto, puedes:",
+  "aboutShare": "Comparte la app",
+  "aboutKofi": "Donar a través de kofi (no se llevan comisión)",
+  "aboutGithub": "Donar a través de github",
+  "aboutGoogle": "Descargar versión pro (google se queda el 30%)",
+  "aboutFooter": "Siempre va a ser 100% gratis y nunca voy a pedirte un dato tuyo, el código es público"
+}
