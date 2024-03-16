@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(60),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (lastEvent == null) ...[
                   Text(
@@ -63,15 +63,25 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () {},
                     text: AppLocalizations.of(context)!.homeFirstEntryButton,
                   )
-                ] else
-                  Padding(
-                      padding: const EdgeInsets.all(60),
-                      child: Column(children: [
-                        Text(
-                          "Last event: ${lastEvent?['id']}, ${lastEvent?['date']}",
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                      ]))
+                ] else ...[
+                  Text(
+                    AppLocalizations.of(context)!.homeHeader,
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    "\nLast event: ${lastEvent?['id']}, ${lastEvent?['date']}\n",
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.homeFooter,
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  const SizedBox(height: 60),
+                  CustomButton(
+                    onPressed: () {},
+                    text: AppLocalizations.of(context)!.homeNewEntryButton,
+                  )
+                ]
               ],
             ));
       },
