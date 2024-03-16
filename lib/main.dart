@@ -77,70 +77,70 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 120,
-        centerTitle: false,
-        title: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Text(
-            widget.title,
-            style: TextStyle(
-                color: Theme.of(context).primaryColorDark,
-                fontFamily: "Playfair Display",
-                fontWeight: FontWeight.w900,
-                fontStyle: FontStyle.italic,
-                fontSize: 80),
+        appBar: AppBar(
+          toolbarHeight: 120,
+          centerTitle: false,
+          title: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Text(
+              widget.title,
+              style: TextStyle(
+                  color: Theme.of(context).primaryColorDark,
+                  fontFamily: "Playfair Display",
+                  fontWeight: FontWeight.w900,
+                  fontStyle: FontStyle.italic,
+                  fontSize: 80),
+            ),
           ),
         ),
-      ),
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: (index) {
-          setState(() {
-            _pageIndex = index;
-          });
-        },
-        children: _widgetOptions,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 40,
-        selectedFontSize: 12.0,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list_rounded),
-            label: 'History',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.info_outline_rounded),
-            label: 'About',
-          ),
-        ],
-        currentIndex: _pageIndex,
-        selectedItemColor: Colors.blue,
-        onTap: _onItemTapped,
-      ),
-    );
+        body: PageView(
+          controller: _pageController,
+          onPageChanged: (index) {
+            setState(() {
+              _pageIndex = index;
+            });
+          },
+          children: _widgetOptions,
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          elevation: 40,
+          selectedFontSize: 12.0,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_rounded),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.list_rounded),
+              label: 'History',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.info_outline_rounded),
+              label: 'About',
+            ),
+          ],
+          currentIndex: _pageIndex,
+          selectedItemColor: Colors.blue,
+          onTap: _onItemTapped,
+        ),
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: _addEvent,
+              tooltip: 'Add event',
+              child: const Icon(Icons.add),
+            ), // This trailing comma makes auto-formatting nicer for build methods.
+            // add some space
+            const SizedBox(
+              height: 10,
+            ),
+            FloatingActionButton(
+              onPressed: _readEvents,
+              tooltip: 'Read events',
+              child: const Icon(Icons.chrome_reader_mode),
+            ), // This trailing comma makes auto-formatting nicer for build methods.
+          ],
+        ));
   }
 }
-
-        // floatingActionButton:
-        //     Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-        //   FloatingActionButton(
-        //     onPressed: _addEvent,
-        //     tooltip: 'Add event',
-        //     child: const Icon(Icons.add),
-        //   ), // This trailing comma makes auto-formatting nicer for build methods.
-        //   // add some space
-        //   const SizedBox(
-        //     height: 10,
-        //   ),
-        //   FloatingActionButton(
-        //     onPressed: _readEvents,
-        //     tooltip: 'Read events',
-        //     child: const Icon(Icons.chrome_reader_mode),
-        //   ), // This trailing comma makes auto-formatting nicer for build methods.
-        // ]));
