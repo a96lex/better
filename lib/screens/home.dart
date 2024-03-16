@@ -27,14 +27,16 @@ class _HomeScreenState extends State<HomeScreen> {
     // for some reason, the combination of StreamController stream and setState
     // is triggering many database reads. If setState is not used, on the
     // initial component build, the lastEvent will be null.
-    if (maybeLastEvent != null && mounted) {
-      setState(() {
-        lastEvent = maybeLastEvent.toMap();
-      });
-    } else {
-      setState(() {
-        lastEvent = null;
-      });
+    if (mounted) {
+      if (maybeLastEvent != null) {
+        setState(() {
+          lastEvent = maybeLastEvent.toMap();
+        });
+      } else {
+        setState(() {
+          lastEvent = null;
+        });
+      }
     }
   }
 
