@@ -11,7 +11,7 @@ class HistoryScreen extends StatelessWidget {
         children: <Widget>[
           Text(
             'Welcome to the History Screen!',
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 16),
           ),
         ],
       ),
