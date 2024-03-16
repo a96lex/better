@@ -104,24 +104,25 @@ class _MainPageState extends State<MainPage> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           elevation: 40,
-          selectedFontSize: 12.0,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.list_rounded),
-              label: 'History',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.info_outline_rounded),
-              label: 'About',
-            ),
-          ],
+          selectedFontSize: 0,
+          iconSize: 30,
           currentIndex: _pageIndex,
           selectedItemColor: Colors.blue,
           onTap: _onItemTapped,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_rounded),
+              label: null,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.list_rounded),
+              label: null,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.info_outline_rounded),
+              label: null,
+            ),
+          ],
         ),
         floatingActionButton: Column(
           mainAxisAlignment: MainAxisAlignment.end,
