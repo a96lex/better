@@ -1,8 +1,8 @@
+import 'package:better/components/new_event_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:better/database/database_helper.dart';
 import 'package:better/models/event.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:better/components/custom_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -59,8 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: const TextStyle(fontSize: 16),
                   ),
                   const SizedBox(height: 60),
-                  CustomButton(
-                    onPressed: () {},
+                  NewEntryModal(
                     text: AppLocalizations.of(context)!.homeFirstEntryButton,
                   )
                 ] else ...[
@@ -77,8 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: const TextStyle(fontSize: 16),
                   ),
                   const SizedBox(height: 60),
-                  CustomButton(
-                    onPressed: () {},
+                  NewEntryModal(
                     text: AppLocalizations.of(context)!.homeNewEntryButton,
                   )
                 ]
