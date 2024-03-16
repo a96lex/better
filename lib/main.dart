@@ -112,15 +112,15 @@ class _MainPageState extends State<MainPage> {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home_rounded),
-              label: null,
+              label: "",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.list_rounded),
-              label: null,
+              label: "",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.info_outline_rounded),
-              label: null,
+              label: "",
             ),
           ],
         ),
