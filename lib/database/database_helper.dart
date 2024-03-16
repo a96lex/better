@@ -69,7 +69,7 @@ class DatabaseHelper {
 
   Future<int> updateEvent(Event event) async {
     final db = await database;
-    return db.update(
+    return await db.update(
       'events',
       event.toMap(),
       where: 'id = ?',
@@ -79,11 +79,20 @@ class DatabaseHelper {
 
   Future<int> deleteEvent(int id) async {
     final db = await database;
-    return db.delete(
+    return await db.delete(
       'events',
       where: 'id = ?',
       whereArgs: [id],
     );
+  }
+
+  Future<int> deleteAllEvents() async {
+    final db = await database;
+    await db.delete(
+      'events',
+    );
+    _updateStreamController.add(null);
+    return 1;
   }
 
   Future<Event?> readLastEvent() async {
