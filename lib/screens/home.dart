@@ -14,8 +14,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   Map<String, dynamic>? lastEvent;
 
-  bool _initialStateSet = false;
-
   @override
   void initState() {
     super.initState();
@@ -30,16 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
     // is triggering many database reads. If setState is not used, on the
     // initial component build, the lastEvent will be null.
     if (maybeLastEvent != null && mounted) {
-      if (!_initialStateSet) {
-        setState(() {
-          lastEvent = maybeLastEvent.toMap();
-          _initialStateSet = true;
-        });
-      } else {
+      setState(() {
         lastEvent = maybeLastEvent.toMap();
-      }
+      });
     } else {
-      lastEvent = null;
+      setState(() {
+        lastEvent = null;
+      });
     }
   }
 

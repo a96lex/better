@@ -65,12 +65,10 @@ class _MainPageState extends State<MainPage> {
   void _addEvent() async {
     var newEvent = Event(date: DateTime.now());
     await DatabaseHelper.instance.createEvent(newEvent);
-    setState(() {});
   }
 
   void _deleteEvents() async {
     await DatabaseHelper.instance.deleteAllEvents();
-    setState(() {});
   }
 
   void _onItemTapped(int index) {
