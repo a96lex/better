@@ -46,10 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return StreamBuilder<void>(
       stream: DatabaseHelper.instance.onUpdate,
       builder: (context, snapshot) {
-        // Call _readEvent() here to update the data from the database
         _readEvent();
 
-        // Your UI code here
         return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
