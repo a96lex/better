@@ -10,34 +10,62 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Event? lastEvent;
+  Map<String, dynamic>? lastEvent;
+
+  bool _initialStateSet = false;
 
   @override
   void initState() {
     super.initState();
-    _readEvent();
+    // _readEvent();
   }
 
   void _readEvent() async {
-    lastEvent = await DatabaseHelper.instance.readLastEvent();
-    print("got last ");
-    print(lastEvent);
-    print(lastEvent?.toMap());
+    Event? maybeLastEvent = await DatabaseHelper.instance.readLastEvent();
+
+    // Workaround
+    // for some reason, the combination of StreamController stream and setState
+    // is triggering many database reads. If setState is not used, on the
+    // initial component build, the lastEvent will be null.
+    if (maybeLastEvent != null && mounted) {
+      if (!_initialStateSet) {
+        setState(() {
+          lastEvent = maybeLastEvent.toMap();
+          _initialStateSet = true;
+        });
+      } else {
+        lastEvent = maybeLastEvent.toMap();
+      }
+    } else {
+      lastEvent = null;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'Welcome to the Home Screen!',
-            style: TextStyle(fontSize: 20),
+    return StreamBuilder<void>(
+      stream: DatabaseHelper.instance.onUpdate,
+      builder: (context, snapshot) {
+        // Call _readEvent() here to update the data from the database
+        _readEvent();
+
+        // Your UI code here
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              if (lastEvent == null)
+                const Text("No last event")
+              else
+                Text(
+                  "Last event: ${lastEvent?['id']}, ${lastEvent?['date']}",
+                  style: const TextStyle(fontSize: 20),
+                ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

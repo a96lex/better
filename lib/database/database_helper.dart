@@ -9,6 +9,10 @@ class DatabaseHelper {
   static Database? _database;
   DatabaseHelper._init();
 
+  final _updateStreamController = StreamController<void>.broadcast();
+
+  Stream<void> get onUpdate => _updateStreamController.stream;
+
   Future<Database> get database async {
     if (_database != null) return _database!;
     _database = await _initDB('events.db');
@@ -34,6 +38,9 @@ class DatabaseHelper {
   Future<int> createEvent(Event event) async {
     final db = await database;
     final id = await db.insert('events', event.toMap());
+
+    _updateStreamController.add(null);
+
     return id;
   }
 
@@ -79,10 +86,15 @@ class DatabaseHelper {
     );
   }
 
-  Future<Event> readLastEvent() async {
+  Future<Event?> readLastEvent() async {
     final db = await database;
     const orderBy = 'date DESC';
     final result = await db.query('events', orderBy: orderBy, limit: 1);
+
+    // if empty, return null
+    if (result.isEmpty) {
+      return null;
+    }
     return Event.fromMap(result.first);
   }
 
