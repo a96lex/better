@@ -50,35 +50,33 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, snapshot) {
         _readEvent();
 
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            if (lastEvent == null)
-              Padding(
-                  padding: const EdgeInsets.all(60),
-                  child: Column(children: [
-                    Text(
-                      AppLocalizations.of(context)!.homeNoEntries,
-                      style: const TextStyle(fontSize: 20),
-                    ),
-                    const SizedBox(height: 60),
-                    CustomButton(
-                      onPressed: () {},
-                      text: AppLocalizations.of(context)!.homeFirstEntryButton,
-                    )
-                  ]))
-            else
-              Padding(
-                  padding: const EdgeInsets.all(60),
-                  child: Column(children: [
-                    Text(
-                      "Last event: ${lastEvent?['id']}, ${lastEvent?['date']}",
-                      style: const TextStyle(fontSize: 20),
-                    ),
-                  ]))
-          ],
-        );
+        return Padding(
+            padding: const EdgeInsets.all(60),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (lastEvent == null) ...[
+                  Text(
+                    AppLocalizations.of(context)!.homeNoEntries,
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  const SizedBox(height: 60),
+                  CustomButton(
+                    onPressed: () {},
+                    text: AppLocalizations.of(context)!.homeFirstEntryButton,
+                  )
+                ] else
+                  Padding(
+                      padding: const EdgeInsets.all(60),
+                      child: Column(children: [
+                        Text(
+                          "Last event: ${lastEvent?['id']}, ${lastEvent?['date']}",
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                      ]))
+              ],
+            ));
       },
     );
   }
