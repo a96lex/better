@@ -65,15 +65,12 @@ class _MainPageState extends State<MainPage> {
   void _addEvent() async {
     var newEvent = Event(date: DateTime.now());
     await DatabaseHelper.instance.createEvent(newEvent);
-    print("Added one event.");
+    setState(() {});
   }
 
-  void _readEvents() async {
-    var event = await DatabaseHelper.instance.readAllevents();
-    print("i read one");
-    for (var e in event) {
-      print(e.toMap());
-    }
+  void _deleteEvents() async {
+    await DatabaseHelper.instance.deleteAllEvents();
+    setState(() {});
   }
 
   void _onItemTapped(int index) {
@@ -147,9 +144,9 @@ class _MainPageState extends State<MainPage> {
               height: 10,
             ),
             FloatingActionButton(
-              onPressed: _readEvents,
+              onPressed: _deleteEvents,
               tooltip: 'Read events',
-              child: const Icon(Icons.chrome_reader_mode),
+              child: const Icon(Icons.delete_forever_rounded),
             ), // This trailing comma makes auto-formatting nicer for build methods.
           ],
         ));
