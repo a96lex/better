@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:better/components/date_time.dart';
 import 'package:intl/intl.dart';
+import 'package:better/database/database_helper.dart';
+import 'package:better/models/event.dart';
 
 class NewEntryModal extends StatefulWidget {
   final String text;
@@ -18,6 +20,7 @@ class NewEntryModal extends StatefulWidget {
 
 class NewEntryModalState extends State<NewEntryModal> {
   String selectedDateTime = "";
+  int selectedTimeStamp = 0;
 
   @override
   void didChangeDependencies() {
@@ -62,11 +65,17 @@ class NewEntryModalState extends State<NewEntryModal> {
       String formattedTime = DateFormat('H:mm').format(maybeSelectedDateTime);
       setState(() {
         selectedDateTime = "$formattedDate $formattedTime";
+        selectedTimeStamp = maybeSelectedDateTime.millisecondsSinceEpoch;
         // force rebuild of _dialogBuilder. This is a workaround. I have no idea
         // why the button text is not updated if I remove this line.
         _dialogBuilder(context);
       });
     }
+  }
+
+  void _addEvent() async {
+    var newEvent = Event(date: DateTime.now());
+    await DatabaseHelper.instance.createEvent(newEvent);
   }
 
   Future<void> _dialogBuilder(BuildContext context) {
@@ -87,7 +96,10 @@ class NewEntryModalState extends State<NewEntryModal> {
             ),
             const SizedBox(height: 80),
             CustomButton(
-              onPressed: () {},
+              onPressed: () {
+                _addEvent();
+                Navigator.of(context).pop();
+              },
               text: AppLocalizations.of(context)!.newEntryModalButton,
             )
           ]),
