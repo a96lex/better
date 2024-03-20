@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:better/database/database_helper.dart';
-import 'package:better/models/event.dart';
 import 'package:better/screens/about.dart';
 import 'package:better/screens/history.dart';
 import 'package:better/screens/home.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -57,15 +55,10 @@ class _MainPageState extends State<MainPage> {
   }
 
   static final List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
+    const HomeScreen(),
     const HistoryScreen(),
     const AboutScreen()
   ];
-
-  void _addEvent() async {
-    var newEvent = Event(date: DateTime.now());
-    await DatabaseHelper.instance.createEvent(newEvent);
-  }
 
   void _deleteEvents() async {
     await DatabaseHelper.instance.deleteAllEvents();
@@ -129,21 +122,15 @@ class _MainPageState extends State<MainPage> {
             ),
           ],
         ),
+        // for debug purposes only.
         floatingActionButton: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FloatingActionButton(
-              onPressed: _addEvent,
-              tooltip: 'Add event',
-              child: const Icon(Icons.add),
-            ), // This trailing comma makes auto-formatting nicer for build methods.
-            // add some space
-            const SizedBox(
-              height: 10,
-            ),
-            FloatingActionButton(
               onPressed: _deleteEvents,
-              tooltip: 'Read events',
+              tooltip: 'Delete events',
+              foregroundColor: Colors.red,
+              backgroundColor: Colors.red.shade100,
               child: const Icon(Icons.delete_forever_rounded),
             ), // This trailing comma makes auto-formatting nicer for build methods.
           ],
