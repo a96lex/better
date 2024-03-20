@@ -91,14 +91,16 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
         ),
-        body: PageView(
+        body: PageView.builder(
           controller: _pageController,
           onPageChanged: (index) {
             setState(() {
               _pageIndex = index;
             });
           },
-          children: _widgetOptions,
+          itemCount: _widgetOptions.length,
+          itemBuilder: (context, index) =>
+              SingleChildScrollView(child: _widgetOptions[index]),
         ),
         bottomNavigationBar: BottomNavigationBar(
           elevation: 40,
