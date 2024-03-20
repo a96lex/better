@@ -16,11 +16,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    super.initState();
-    // _readEvent();
+    super.initState(); // _readEvent();
+
+    _checkLast();
+
+    DatabaseHelper.instance.onUpdate.listen((event) async {
+      _checkLast();
+    });
   }
 
-  void _readEvent() async {
+  void _checkLast() async {
     Event? maybeLastEvent = await DatabaseHelper.instance.readLastEvent();
 
     // Workaround
@@ -28,61 +33,48 @@ class _HomeScreenState extends State<HomeScreen> {
     // is triggering many database reads. If setState is not used, on the
     // initial component build, the lastEvent will be null.
     if (mounted) {
-      if (maybeLastEvent != null) {
-        setState(() {
-          lastEvent = maybeLastEvent.toMap();
-        });
-      } else {
-        setState(() {
-          lastEvent = null;
-        });
-      }
+      setState(() {
+        lastEvent = maybeLastEvent?.toMap();
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<void>(
-      stream: DatabaseHelper.instance.onUpdate,
-      builder: (context, snapshot) {
-        _readEvent();
-
-        return Padding(
-            padding: const EdgeInsets.fromLTRB(60, 10, 60, 0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (lastEvent == null) ...[
-                  Text(
-                    AppLocalizations.of(context)!.homeNoEntries,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(height: 60),
-                  NewEntryModal(
-                    text: AppLocalizations.of(context)!.homeFirstEntryButton,
-                  )
-                ] else ...[
-                  Text(
-                    AppLocalizations.of(context)!.homeHeader,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  Text(
-                    "\nLast event: ${lastEvent?['id']}, ${lastEvent?['date']}\n",
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  Text(
-                    AppLocalizations.of(context)!.homeFooter,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(height: 60),
-                  NewEntryModal(
-                    text: AppLocalizations.of(context)!.homeNewEntryButton,
-                  )
-                ]
-              ],
-            ));
-      },
-    );
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(60, 10, 60, 0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (lastEvent == null) ...[
+              Text(
+                AppLocalizations.of(context)!.homeNoEntries,
+                style: const TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 60),
+              NewEntryModal(
+                text: AppLocalizations.of(context)!.homeFirstEntryButton,
+              )
+            ] else ...[
+              Text(
+                AppLocalizations.of(context)!.homeHeader,
+                style: const TextStyle(fontSize: 16),
+              ),
+              Text(
+                "\nLast event: ${lastEvent?['id']}, ${lastEvent?['date']}\n",
+                style: const TextStyle(fontSize: 16),
+              ),
+              Text(
+                AppLocalizations.of(context)!.homeFooter,
+                style: const TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 60),
+              NewEntryModal(
+                text: AppLocalizations.of(context)!.homeNewEntryButton,
+              )
+            ]
+          ],
+        ));
   }
 }
