@@ -17,53 +17,54 @@ class NewEntryModal extends StatefulWidget {
 }
 
 class NewEntryModalState extends State<NewEntryModal> {
-  String defaultDateTime = "";
+  String selectedDateTime = "";
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
     setState(() {
-      defaultDateTime = _getDefaultDateTime(context);
+      selectedDateTime = _getDefaultDateTime(context);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // Calculate defaultDateTime when the widget is built
     return CustomButton(
-        onPressed: () => _dialogBuilder(context), text: widget.text);
+      onPressed: () => _dialogBuilder(context),
+      text: widget.text,
+    );
   }
 
   String _getDefaultDateTime(BuildContext context) {
     // Calculate the default date and time string
-    print(context.mounted);
-    print("\n\n\n");
     String formattedDate =
         DateFormat.yMd(Localizations.localeOf(context).languageCode)
             .format(DateTime.now());
     String formattedTime = DateFormat('H:mm').format(DateTime.now());
-    return '$formattedDate $formattedTime';
+    String selectedDateTime = '$formattedDate $formattedTime';
+    return selectedDateTime;
   }
 
   Future<void> _showDateTimePicker(BuildContext context) async {
-    DateTime? selectedDateTime = await showDateTimePicker(
+    DateTime? maybeSelectedDateTime = await showDateTimePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2050),
     );
 
-    if (selectedDateTime != null && context.mounted) {
+    if (maybeSelectedDateTime != null && context.mounted) {
       // Handle the selected date and time
       String formattedDate =
           DateFormat.yMd(Localizations.localeOf(context).languageCode)
-              .format(selectedDateTime);
-      String formattedTime = DateFormat('H:mm').format(selectedDateTime);
+              .format(maybeSelectedDateTime);
+      String formattedTime = DateFormat('H:mm').format(maybeSelectedDateTime);
       setState(() {
-        print("whi $formattedDate $formattedTime");
-        defaultDateTime = "$formattedDate $formattedTime";
-        print("fucking setstate as called");
+        selectedDateTime = "$formattedDate $formattedTime";
+        // force rebuild of _dialogBuilder. This is a workaround. I have no idea
+        // why the button text is not updated if I remove this line.
+        _dialogBuilder(context);
       });
     }
   }
@@ -82,9 +83,8 @@ class NewEntryModalState extends State<NewEntryModal> {
             const SizedBox(height: 40),
             CustomButton(
               onPressed: () => _showDateTimePicker(context),
-              text: defaultDateTime,
+              text: selectedDateTime,
             ),
-            Text(defaultDateTime),
             const SizedBox(height: 80),
             CustomButton(
               onPressed: () {},
