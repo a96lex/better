@@ -6,6 +6,7 @@
   "homeNewEntryButton": "Have you relapsed?",
   "newEntryModalHeader": "New entry",
   "newEntryModalText": "It's okay, we've all been there. Everything will be fine.\n\nWhen was it?",
+  "newEntryModalDescriptionPrompt": "Add a description (optional)",
   "newEntryModalButton": "Save",
   "newEntryModalClose": "Close",
   "aboutHeader": "This app was developed by Alex. It was created to help me, and I share it with the world in case it can help someone else.\n\nIf this app has helped you or a loved one, and you want to support the project, you can:",

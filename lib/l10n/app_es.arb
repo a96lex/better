@@ -6,6 +6,7 @@
   "homeNewEntryButton": "Has recaído?",
   "newEntryModalHeader": "Nueva entrada",
   "newEntryModalText": "No pasa nada, todos hemos estado ahí. Todo irá bien.\n\nCuando ha sido?",
+  "newEntryModalDescriptionPrompt": "Añade una descripción (opcional)",
   "newEntryModalButton": "Guardar",
   "newEntryModalClose": "Cerrar",
   "aboutHeader": "Esta app ha sido desarrollada por Alex. Nació para ayudarme a mi,y la comparto con el mundo por si puede ayudar a alguien más.\n\nSi esta app te ha ayudado a ti o a algun ser querido, y quieres apoyar el proyecto, puedes:\n",
