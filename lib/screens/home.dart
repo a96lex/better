@@ -1,8 +1,9 @@
-import 'package:better/components/new_event_modal.dart';
+import 'package:better/components/time_badge.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:better/components/new_event_modal.dart';
 import 'package:better/database/database_helper.dart';
 import 'package:better/models/event.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -61,10 +62,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 AppLocalizations.of(context)!.homeHeader,
                 style: const TextStyle(fontSize: 16),
               ),
-              Text(
-                "\nLast event: ${lastEvent?['id']}, ${lastEvent?['date']}\n",
-                style: const TextStyle(fontSize: 16),
-              ),
+              Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: TimeBadge(timeStamp: lastEvent?['date']),
+                  )),
               Text(
                 AppLocalizations.of(context)!.homeFooter,
                 style: const TextStyle(fontSize: 16),
