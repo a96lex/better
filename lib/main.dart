@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:better/database/database_helper.dart';
 import 'package:better/screens/about.dart';
-import 'package:better/screens/history.dart';
 import 'package:better/screens/home.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+// import 'package:better/screens/history.dart';
 
 void main() {
   runApp(const MyApp());
@@ -56,13 +55,9 @@ class _MainPageState extends State<MainPage> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const HomeScreen(),
-    const HistoryScreen(),
+    // const HistoryScreen(),
     const AboutScreen()
   ];
-
-  void _deleteEvents() async {
-    await DatabaseHelper.instance.deleteAllEvents();
-  }
 
   void _onItemTapped(int index) {
     _pageController.animateToPage(
@@ -75,67 +70,55 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 120,
-          centerTitle: false,
-          title: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Text(
-              widget.title,
-              style: TextStyle(
-                  color: Theme.of(context).primaryColorDark,
-                  fontFamily: "Playfair Display",
-                  fontWeight: FontWeight.w900,
-                  fontStyle: FontStyle.italic,
-                  fontSize: 80),
-            ),
+      appBar: AppBar(
+        toolbarHeight: 120,
+        centerTitle: false,
+        title: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Text(
+            widget.title,
+            style: TextStyle(
+                color: Theme.of(context).primaryColorDark,
+                fontFamily: "Playfair Display",
+                fontWeight: FontWeight.w900,
+                fontStyle: FontStyle.italic,
+                fontSize: 80),
           ),
         ),
-        body: PageView.builder(
-          controller: _pageController,
-          onPageChanged: (index) {
-            setState(() {
-              _pageIndex = index;
-            });
-          },
-          itemCount: _widgetOptions.length,
-          itemBuilder: (context, index) =>
-              SingleChildScrollView(child: _widgetOptions[index]),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          elevation: 40,
-          selectedFontSize: 0,
-          iconSize: 30,
-          currentIndex: _pageIndex,
-          selectedItemColor: Colors.blue,
-          onTap: _onItemTapped,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded),
-              label: "",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.list_rounded),
-              label: "",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.info_outline_rounded),
-              label: "",
-            ),
-          ],
-        ),
-        // for debug purposes only.
-        floatingActionButton: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: _deleteEvents,
-              tooltip: 'Delete events',
-              foregroundColor: Colors.red,
-              backgroundColor: Colors.red.shade100,
-              child: const Icon(Icons.delete_forever_rounded),
-            ), // This trailing comma makes auto-formatting nicer for build methods.
-          ],
-        ));
+      ),
+      body: PageView.builder(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _pageIndex = index;
+          });
+        },
+        itemCount: _widgetOptions.length,
+        itemBuilder: (context, index) =>
+            SingleChildScrollView(child: _widgetOptions[index]),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 40,
+        selectedFontSize: 0,
+        iconSize: 30,
+        currentIndex: _pageIndex,
+        selectedItemColor: Colors.blue,
+        onTap: _onItemTapped,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_rounded),
+            label: "",
+          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.list_rounded),
+          //   label: "",
+          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info_outline_rounded),
+            label: "",
+          ),
+        ],
+      ),
+    );
   }
 }
