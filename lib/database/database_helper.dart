@@ -30,7 +30,8 @@ class DatabaseHelper {
     await db.execute('''
   CREATE TABLE events(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  date INTEGER not null
+  date INTEGER not null,
+  text VARCHAR(1000)
 )
 ''');
   }
@@ -48,7 +49,7 @@ class DatabaseHelper {
     final db = await database;
     final maps = await db.query(
       'events',
-      columns: ['id', 'date'],
+      columns: ['id', 'date', 'text'],
       where: 'id = ?',
       whereArgs: [id],
     );
