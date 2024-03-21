@@ -21,6 +21,8 @@ class NewEntryModal extends StatefulWidget {
 class NewEntryModalState extends State<NewEntryModal> {
   String selectedDateTime = "";
   int selectedTimeStamp = 0;
+  bool _isDialogOpen = false;
+  final TextEditingController _textController = TextEditingController();
 
   @override
   void didChangeDependencies() {
@@ -74,35 +76,60 @@ class NewEntryModalState extends State<NewEntryModal> {
   }
 
   void _addEvent() async {
-    var newEvent = Event(date: DateTime.now());
+    var newEvent = Event(
+      date: DateTime.now(),
+      text: _textController.text,
+    );
     await DatabaseHelper.instance.createEvent(newEvent);
   }
 
   Future<void> _dialogBuilder(BuildContext context) {
+    // Prevent multiple dialogs from being opened.
+    if (_isDialogOpen) {
+      return Future.value();
+    }
+
+    _isDialogOpen = true;
+
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(AppLocalizations.of(context)!.newEntryModalHeader),
-          content: Column(children: [
+          content: SingleChildScrollView(
+              child: Column(children: [
             Text(
               AppLocalizations.of(context)!.newEntryModalText,
               style: const TextStyle(fontSize: 16),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 20),
             CustomButton(
               onPressed: () => _showDateTimePicker(context),
               text: selectedDateTime,
             ),
-            const SizedBox(height: 80),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              child: TextField(
+                controller: _textController,
+                maxLines: 4,
+                maxLength: 1000,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  hintText: AppLocalizations.of(context)!
+                      .newEntryModalDescriptionPrompt,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
             CustomButton(
               onPressed: () {
                 _addEvent();
-                Navigator.of(context).pop();
+                Navigator.of(context, rootNavigator: true).pop();
               },
               text: AppLocalizations.of(context)!.newEntryModalButton,
             )
-          ]),
+          ])),
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
@@ -116,6 +143,8 @@ class NewEntryModalState extends State<NewEntryModal> {
           ],
         );
       },
-    );
+    ).then((value) {
+      _isDialogOpen = false;
+    });
   }
 }
