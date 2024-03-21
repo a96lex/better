@@ -19,8 +19,8 @@ class NewEntryModal extends StatefulWidget {
 }
 
 class NewEntryModalState extends State<NewEntryModal> {
-  String selectedDateTime = "";
-  int selectedTimeStamp = 0;
+  String selectedDateTimeDisplayText = "";
+  DateTime selectedDateTime = DateTime.now();
   bool _isDialogOpen = false;
   final TextEditingController _textController = TextEditingController();
 
@@ -29,7 +29,7 @@ class NewEntryModalState extends State<NewEntryModal> {
     super.didChangeDependencies();
 
     setState(() {
-      selectedDateTime = _getDefaultDateTime(context);
+      selectedDateTimeDisplayText = _getDefaultDateTime(context);
     });
   }
 
@@ -47,8 +47,8 @@ class NewEntryModalState extends State<NewEntryModal> {
         DateFormat.yMd(Localizations.localeOf(context).languageCode)
             .format(DateTime.now());
     String formattedTime = DateFormat('H:mm').format(DateTime.now());
-    String selectedDateTime = '$formattedDate $formattedTime';
-    return selectedDateTime;
+    String selectedDateTimeDisplayText = '$formattedDate $formattedTime';
+    return selectedDateTimeDisplayText;
   }
 
   Future<void> _showDateTimePicker(BuildContext context) async {
@@ -66,8 +66,8 @@ class NewEntryModalState extends State<NewEntryModal> {
               .format(maybeSelectedDateTime);
       String formattedTime = DateFormat('H:mm').format(maybeSelectedDateTime);
       setState(() {
-        selectedDateTime = "$formattedDate $formattedTime";
-        selectedTimeStamp = maybeSelectedDateTime.millisecondsSinceEpoch;
+        selectedDateTimeDisplayText = "$formattedDate $formattedTime";
+        selectedDateTime = maybeSelectedDateTime;
         // force rebuild of _dialogBuilder. This is a workaround. I have no idea
         // why the button text is not updated if I remove this line.
         _dialogBuilder(context);
@@ -77,7 +77,7 @@ class NewEntryModalState extends State<NewEntryModal> {
 
   void _addEvent() async {
     var newEvent = Event(
-      date: DateTime.now(),
+      date: selectedDateTime,
       text: _textController.text,
     );
     await DatabaseHelper.instance.createEvent(newEvent);
@@ -105,7 +105,7 @@ class NewEntryModalState extends State<NewEntryModal> {
             const SizedBox(height: 20),
             CustomButton(
               onPressed: () => _showDateTimePicker(context),
-              text: selectedDateTime,
+              text: selectedDateTimeDisplayText,
             ),
             const SizedBox(height: 20),
             Padding(
@@ -126,6 +126,9 @@ class NewEntryModalState extends State<NewEntryModal> {
               onPressed: () {
                 _addEvent();
                 Navigator.of(context, rootNavigator: true).pop();
+                setState(() {
+                  selectedDateTimeDisplayText = _getDefaultDateTime(context);
+                });
               },
               text: AppLocalizations.of(context)!.newEntryModalButton,
             )
