@@ -3,7 +3,7 @@ import 'package:better/screens/about.dart';
 import 'package:better/screens/home.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:better/screens/history.dart';
+import 'package:better/screens/history.dart';
 
 void main() {
   runApp(const MyApp());
@@ -55,7 +55,7 @@ class _MainPageState extends State<MainPage> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const HomeScreen(),
-    // const HistoryScreen(),
+    const HistoryScreen(),
     const AboutScreen()
   ];
 
@@ -109,10 +109,10 @@ class _MainPageState extends State<MainPage> {
             icon: Icon(Icons.home_rounded),
             label: "",
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.list_rounded),
-          //   label: "",
-          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list_rounded),
+            label: "",
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info_outline_rounded),
             label: "",
