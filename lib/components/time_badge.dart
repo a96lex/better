@@ -32,6 +32,11 @@ class TimeBadgeState extends State<TimeBadge> {
 
     // call the convertToBadgeText every second from now on
     Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
+
       setState(() {
         displayText = convertToBadgeText(context, widget.timeStamp);
       });
