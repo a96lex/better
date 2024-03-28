@@ -33,5 +33,6 @@
   "hourShort": "H",
   "minuteShort": "m",
   "secondShort": "s",
-  "and": "and"
+  "and": "and",
+  "historyNoEvents": "No events to show"
 }
