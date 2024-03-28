@@ -28,8 +28,6 @@ class HistoryScreenState extends State<HistoryScreen> {
     var fetchedEventList = await DatabaseHelper.instance.readAllevents();
     setState(() {
       eventList = fetchedEventList;
-      print("setstate called, length: ${eventList.length}");
-      print("setstate called, list: $eventList");
     });
   }
 
@@ -39,60 +37,38 @@ class HistoryScreenState extends State<HistoryScreen> {
       shrinkWrap: true,
       itemCount: eventList.length,
       itemBuilder: (context, index) {
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+        int reversedIndex = eventList.length - 1 - index;
+        return Column(children: [
+          Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  Container(
-                    width: 6.0,
-                    height: 100,
+                padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+                child: Container(
+                  width: 12,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
                     color: Theme.of(context).primaryColor,
                   ),
-                  Container(
-                    width: 15,
-                    height: 15,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                ],
+                )),
+            Text(
+              DateFormat.yMMMMEEEEd(
+                      Localizations.localeOf(context).languageCode)
+                  .add_Hm()
+                  .format(eventList[reversedIndex].date),
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            )
+          ]),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(42, 10, 42, 40),
+            child: SizedBox(
+              width: double.infinity,
+              child: Text(
+                '${eventList[reversedIndex].text}',
+                textAlign: TextAlign.left,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width - 60,
-                    ),
-                    child: Text(DateFormat.yMMMMEEEEd(
-                                Localizations.localeOf(context).languageCode)
-                            .add_Hm()
-                            .format(eventList[index].date)
-                        // Additional Text properties
-                        ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 8.0, top: 8.0),
-                    constraints: BoxConstraints(
-                        maxWidth: MediaQuery.of(context).size.width - 100),
-                    child: Text(
-                      '${eventList[index].text}',
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                ],
-              ),
-            )
-          ],
-        );
+          ),
+        ]);
       },
     );
   }
