@@ -24,11 +24,8 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      // TODO: remove
-      locale: const Locale("es"),
       home: const MainPage(title: 'Mejor'),
     );
   }
