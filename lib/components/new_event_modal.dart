@@ -128,6 +128,7 @@ class NewEntryModalState extends State<NewEntryModal> {
                 Navigator.of(context, rootNavigator: true).pop();
                 setState(() {
                   selectedDateTimeDisplayText = _getDefaultDateTime(context);
+                  _textController.clear();
                 });
               },
               text: AppLocalizations.of(context)!.newEntryModalButton,
