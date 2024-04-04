@@ -61,7 +61,7 @@ class HistoryScreenState extends State<HistoryScreen> {
                           ),
                         )),
                     Text(
-                      DateFormat.yMMMMEEEEd(
+                      DateFormat.yMMMEd(
                               Localizations.localeOf(context).languageCode)
                           .add_Hm()
                           .format(eventList[reversedIndex].date),
