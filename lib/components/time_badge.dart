@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:home_widget/home_widget.dart';
 
 class TimeBadge extends StatefulWidget {
   final int timeStamp;
@@ -132,6 +133,14 @@ class TimeBadgeState extends State<TimeBadge> {
         break;
       }
     }
+
+    // send result to widget
+    HomeWidget.saveWidgetData("letter", maxUnitLabel);
+    HomeWidget.saveWidgetData("number", maxUnitValue);
+    HomeWidget.saveWidgetData("text", result);
+    HomeWidget.updateWidget(
+      androidName: "BadgeWidget",
+    );
 
     return result;
   }
